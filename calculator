@@ -1,0 +1,71 @@
+import math
+
+print("I am your Roth 401k calculator.")
+print("Maximum allowed contributions as of 2024 under age of 50: $23,000")
+print("Maximum allowed contributions as of 2024 for 50 and over: $30,500")
+print()
+print("Do you want to do maxed out contributions (enter 1)")
+decision = int(input("or custom contributions for each year? (enter 2): "))
+print()
+
+#maxxed out contributions
+if decision == 1:
+  balance = 0
+
+  starting_age = int(input("Enter your age when you start making contributions: "))
+
+  retirement_age = int(input("Enter your age when you stop making contributions: "))
+  
+  for i in range(50 - starting_age):
+    balance += 23000
+    balance *= 1.07
+  
+  for i in range(retirement_age - 50):
+    balance += 30500
+    balance *= 1.07
+  
+  print("Final 2024 tax-free balance:")
+  balance *= 100
+  result = math.trunc(balance)/100
+  print(result)
+
+#custom contributions
+if decision == 2:
+  balance = 0
+
+  starting_age = int(input("Enter your age when you start making contributions: "))
+
+  retirement_age = int(input("Enter your age when you stop making contributions: "))
+
+  counter = 0
+
+  while starting_age < 50:
+    x = float(input("Enter your contribution: "))
+    if x > 23000:
+      print("You cannot contribute more than $23,000 until you're 50.")
+
+    if x <= 23000:
+      balance += x
+      balance *= 1.07
+      starting_age += 1
+
+  print("you're 50 now: your max contribution limits have gone up.")
+
+  while starting_age >= 50 and starting_age < retirement_age:
+    x = float(input("Enter your contribution:"))
+    
+    if x > 30500:
+      print("You cannot contribute more than $30,500.")
+
+    if x <= 30500:
+      balance += x
+      balance *= 1.07
+      starting_age += 1
+
+  print("Final 2024 tax-free balance:")
+  balance *= 100
+  result = math.trunc(balance)/100
+  print(result)
+
+print()
+print("This is excluding employer Roth 401k matching which varies by employer.")
